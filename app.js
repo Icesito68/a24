@@ -49,21 +49,6 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/api/bicicletas", bicicletasAPIRouter);
 
-// error handlers
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
-
 const options = {
   definition: {
     openapi: "3.1.0",
@@ -88,10 +73,33 @@ const options = {
       },
     ],
   },
-  apis: ["./routes/*.js"],
+  apis: ["./routes/api/*.js"],
 };
 
 const specs = swaggerJsdoc(options);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, {
+    explorer: true,
+    customCssUrl:
+      "https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-newspaper.css",
+  })
+);
+
+// error handlers
+app.use(function (req, res, next) {
+  next(createError(404));
+});
+
+app.use(function (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render("error");
+});
 
 module.exports = app;

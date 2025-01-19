@@ -2,144 +2,114 @@
  * @swagger
  * components:
  *   schemas:
- *     Book:
+ *     Bicycle:
  *       type: object
  *       required:
- *         - title
- *         - author
- *         - finished
+ *         - id
+ *         - color
+ *         - modelo
+ *         - ubicacion
  *       properties:
  *         id:
  *           type: string
- *           description: The auto-generated id of the book
- *         title:
+ *           description: The auto-generated id of the bicycle
+ *         color:
  *           type: string
- *           description: The title of your book
- *         author:
+ *           description: The color of the bicycle
+ *         modelo:
  *           type: string
- *           description: The book author
- *         finished:
- *           type: boolean
- *           description: Whether you have finished reading the book
- *         createdAt:
+ *           description: The model of the bicycle
+ *         ubicacion:
  *           type: string
- *           format: date
- *           description: The date the book was added
+ *           description: The current location of the bicycle
  *       example:
- *         id: d5fE_asz
- *         title: The New Turing Omnibus
- *         author: Alexander K. Dewdney
- *         finished: false
- *         createdAt: 2020-03-10T04:05:06.157Z
+ *         id: abc123
+ *         color: Red
+ *         modelo: Orbea
+ *         ubicacion: Central Park
  */
 
 /**
  * @swagger
  * tags:
- *   name: Books
- *   description: The books managing API
- * /books:
- *   post:
- *     summary: Create a new book
- *     tags: [Books]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Book'
- *     responses:
- *       200:
- *         description: The created book.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Book'
- *       500:
- *         description: Some server error
- *
- */
-
-/**
- * @swagger
- * tags:
- *   name: Books
- *   description: The books managing API
- * /books:
+ *   name: Bicycles
+ *   description: API for managing bicycles
+ * /api/bicicletas:
  *   get:
- *     summary: Lists all the books
- *     tags: [Books]
+ *     summary: Lists all the bicycles
+ *     tags: [Bicycles]
  *     responses:
  *       200:
- *         description: The list of the books
+ *         description: The list of bicycles
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Book'
+ *                 $ref: '#/components/schemas/Bicycle'
+ * /api/bicicletas/create:
  *   post:
- *     summary: Create a new book
- *     tags: [Books]
+ *     summary: Create a new bicycle
+ *     tags: [Bicycles]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Book'
+ *             $ref: '#/components/schemas/Bicycle'
  *     responses:
  *       200:
- *         description: The created book.
+ *         description: The bicycle was created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Book'
+ *               $ref: '#/components/schemas/Bicycle'
  *       500:
  *         description: Some server error
- * /books/{id}:
+ * /api/bicicletas/update/{id}:
  *   put:
- *    summary: Update the book by the id
- *    tags: [Books]
- *    parameters:
- *      - in: path
- *        name: id
- *        schema:
- *          type: string
- *        required: true
- *        description: The book id
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/Book'
- *    responses:
- *      200:
- *        description: The book was updated
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/Book'
- *      404:
- *        description: The book was not found
- *      500:
- *        description: Some error happened
- *   delete:
- *     summary: Remove the book by id
- *     tags: [Books]
+ *     summary: Update a bicycle by id
+ *     tags: [Bicycles]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The book id
- *
+ *         description: The bicycle id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Bicycle'
  *     responses:
  *       200:
- *         description: The book was deleted
+ *         description: The bicycle was updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Bicycle'
  *       404:
- *         description: The book was not found
+ *         description: The bicycle was not found
+ *       500:
+ *         description: Some server error
+ * /api/bicicletas/delete/{id}:
+ *   delete:
+ *     summary: Remove a bicycle by id
+ *     tags: [Bicycles]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The bicycle id
+ *     responses:
+ *       200:
+ *         description: The bicycle was deleted
+ *       404:
+ *         description: The bicycle was not found
  */
 
 let express = require("express");

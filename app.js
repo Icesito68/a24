@@ -14,7 +14,7 @@ var bicicletasAPIRouter = require("./routes/api/bicicletas");
 // Instantiations
 var app = express();
 
-app.use(cors({ origin: "https://a25.onrender.com" }));
+app.use(cors({ origin: "https://icesito68.github.io" }));
 
 // Swagger
 var swaggerJsdoc = require("swagger-jsdoc");
